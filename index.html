@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="WeatherSphere — a premium, real-time weather app. Current conditions, hourly and 7-day forecasts, air quality, and an interactive map."
+    />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <title>WeatherSphere</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!--
+      Theme bootstrap: runs synchronously BEFORE the app mounts so the correct
+      theme class is on <html> before first paint. This is what prevents the
+      light-to-dark flash on load. Keep it dependency-free and inline.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('weathersphere:theme')
+          var theme = stored ? JSON.parse(stored) : 'system'
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+          var isDark = theme === 'dark' || (theme === 'system' && prefersDark)
+          document.documentElement.classList.toggle('dark', isDark)
+        } catch (e) {
+          /* ignore — default to light */
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
